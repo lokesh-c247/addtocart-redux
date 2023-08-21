@@ -3,8 +3,8 @@ import { clearCart} from "../redux/cartSlice";
 const Header = () => {
 
     const allItems = useSelector((state) => state.cart.items)
-    console.log(allItems , "cartlen")
     const dispatch = useDispatch();
+    
     return (
        <div style={{display : "flex" , alignItems : "center" , justifyContent : "space-around" , margin : "1rem" }}>
             <div>Food App</div>

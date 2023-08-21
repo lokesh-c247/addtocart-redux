@@ -1,42 +1,34 @@
-import { useDispatch } from "react-redux";
-import { addItem , removeItem} from "../redux/cartSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { addItem, removeItem } from "../redux/cartSlice";
 import { useState } from "react";
+import { decreaseQuantity, increaseQuantity } from "../redux/quantitySlice";
 
 const Card = (props) => {
-    const {image  , title , price , category , rating , index , id , quantity} = props;
-    const [added,setAdded] = useState(true)
+    const { image, title, price, category, rating, index, id } = props;
+    const [added, setAdded] = useState(true)
+    const allItems = useSelector((state) => (state.quantity.allProducts));
     const dispatch = useDispatch();
 
-    const [localQuantity,setLocalQuantity] = useState(1);
-
-    const increaseQuantity = () => {
-        setLocalQuantity((prev) => prev+1);
-    };
-
-    const decreaseQuantity = () => {
-        if(localQuantity > 0){
-            setLocalQuantity((prev) => prev-1);
-        }
-    };
-
     return (
-        <div key = {index} style={{height : "max-content" , width : "220px" , border : "2px solid black" , padding : "10px" , margin : "1rem" , background : "#fffff"}}>
-            <img src = {image} alt = "na" height= "100px" width = "100px" />
+        <div key={index} style={{ height: "max-content", width: "220px", border: "2px solid black", padding: "10px", margin: "1rem", background: "#fffff" }}>
+            <img src={image} alt="na" height="100px" width="100px" />
             <h4 className="title">{title}</h4>
             <h5>{price}</h5>
             <h6>{category}</h6>
             <p>{rating.rate}</p>
             {
-                added ? 
-                <button className="btn" onClick={()=> {dispatch(addItem(props)); setAdded(false)}}>Add to cart</button>
-                :
+                added ?
+                    <button className="btn" onClick={() => { dispatch(addItem(props)); setAdded(false) }}>Add to cart</button>
+                    :
                     <div>
-                        <button className = "box" onClick={()=> {dispatch(addItem(props)); increaseQuantity();}}>+</button>
-                        <span>{localQuantity}</span>
-                        <button className = "box" onClick={()=>{dispatch(removeItem(id)); decreaseQuantity();}}>-</button>
+                        <button className="box" onClick={() => { dispatch(addItem(props)); dispatch(increaseQuantity(id)); }}>+</button>
+
+                        <span>{allItems.find((item) => item.id === id).quantity}</span>
+
+                        <button className="box" onClick={() => { dispatch(removeItem(id)); dispatch(decreaseQuantity(id)) }}>-</button>
                     </div>
             }
-            
+
         </div>
     )
 }
