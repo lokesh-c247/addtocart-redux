@@ -1,28 +1,28 @@
-import { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import Card from "./Card";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchProduct } from "../redux/localQuantitySlice";
 
 const Main = () => {
+    const dispatch = useDispatch();
+    const allProducts = useSelector(state => state.localQuantity.allProducts);
+    const localQuantities = useSelector(state => state.localQuantity);
 
-    const [allProducts , setAllProducts] = useState([]);
-
-    useEffect(()=>{
-        fetch("https://fakestoreapi.com/products")
-        .then(res => res.json())
-        .then(json => setAllProducts(json.map((product)=>({
-            ...product,
-            quantity : 0
-        }))))
-    },[])
-
+    useEffect(() => {
+        dispatch(fetchProduct());
+    }, []);
 
     return (
-        <div style={{display : "flex" , flexWrap : "wrap" }}>
-        {
-            allProducts.map((product , index)=>(
-                    <Card {...product}  key = {index}/>
-            ))}   
+        <div style={{ display: "flex", flexWrap: "wrap" }}>
+            {allProducts?.map((product, index) => (
+                <Card
+                    {...product}
+                    localQuantity={localQuantities[product.id] || 0}
+                    key={index}
+                />
+            ))}
         </div>
-    )
+    );
 }
 
 export default Main;
