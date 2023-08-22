@@ -10,7 +10,7 @@ export const allData = createAsyncThunk("quantitySlice/fetchProducts" , async() 
 
 
 const quantitySlice = createSlice({
-    name : "quanity",
+    name : "quantity",
     initialState : {
         allProducts : []
     },
