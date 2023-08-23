@@ -15,7 +15,7 @@ const Card = (props) => {
             <h4 data-testId = "titleCard"className="title">{title}</h4>
             <h5>{price}</h5>
             <h6>{category}</h6>
-            <p>{rating.rate}</p>
+            <p>{rating?.rate}</p>
             {
                 added ?
                     <button data-testId = "btn" className="btn" onClick={() => { dispatch(addItem(props)); setAdded(false) }}>Add to cart</button>

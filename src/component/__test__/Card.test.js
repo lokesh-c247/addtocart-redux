@@ -30,6 +30,7 @@ describe("Card Component", () => {
                 />
             </Provider>
         )
+        
         const titleElement = screen.getByTestId("titleCard");
         expect(titleElement).toBeInTheDocument();
 

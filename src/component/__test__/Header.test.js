@@ -27,8 +27,3 @@ test("mock redux store" , ()=> {
 })
 
 
-
-// test("Title render correctly" , ()=> {
-//     render(<Header/>);
-    
-// })

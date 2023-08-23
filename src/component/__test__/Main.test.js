@@ -18,7 +18,6 @@ describe("Main Component", () => {
                 allProducts: mockProducts
             }
         }
-
         const store = mockStore(intitalState)
 
         render(
@@ -35,7 +34,7 @@ describe("Main Component", () => {
 
         mockProducts.forEach((product) => {
             const productTitleElement = screen.queryByText(product.title);
-            console.log(product.title);
+            // console.log(product.title);
             expect(productTitleElement).toBeInTheDocument();
         })
     })
