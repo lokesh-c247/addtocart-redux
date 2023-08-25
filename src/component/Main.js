@@ -10,7 +10,7 @@ const Main = () => {
 
     useEffect(() => {
         dispatch(allData());
-    }, [])
+    }, []);
 
     console.log(allItems , "allitems");
 
